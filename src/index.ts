@@ -23,10 +23,9 @@ abstract class Region {
  * optimized for multiple part types. Spheres are the most efficient.
  */
 export class BasePartRegion extends Region {
-    protected part?: Part;
     constructor(public location: CFrame, public size: Vector3, public shape: Enum.PartType) {
         super();
-        // eliminate the potential of the size extending beyond the shape for spheres and cylinders
+        // eliminates the potential of the size extending beyond the shape for spheres and cylinders
         switch (shape) {
             case Enum.PartType.Ball:
                 const ballRadius = math.max(size.X, size.Y, size.Z);
@@ -37,38 +36,15 @@ export class BasePartRegion extends Region {
                 this.size = new Vector3(cylinderRadius, size.Y, cylinderRadius);
                 break;
         }
-        if (RunService.IsClient()) {
-            const newPart = new Instance("Part");
-            newPart.CFrame = location;
-            newPart.Size = size;
-            newPart.Shape = shape;
-            newPart.Anchored = true;
-            newPart.Transparency = 1;
-            newPart.CanCollide = false;
-            newPart.CanTouch = true;
-            newPart.Parent = undefined;
-            newPart.Name = tostring(this);
-            this.part = newPart;
-        }
     }
     static fromPart(part: BasePart) {
         return new this(part.CFrame, part.Size, part.IsA("Part") ? part.Shape : Enum.PartType.Block);
     }
     async enteredRegion(part: BasePart) {
-        if (RunService.IsClient() && this.part) {
-            this.part.Parent = Workspace;
-            let inRegion = this.isInRegion(part.Position);
-            while (!inRegion) inRegion = part.Touched.Wait()[0] === this.part;
-            this.part.Parent = undefined;
-        } else while (this.isInRegion(part.Position)) wait(0.1);
+        while (this.isInRegion(part.Position)) wait(0.1);
     }
     async leftRegion(part: BasePart) {
-        if (RunService.IsClient() && this.part) {
-            this.part.Parent = Workspace;
-            let inRegion = this.isInRegion(part.Position);
-            while (inRegion) inRegion = !(part.TouchEnded.Wait()[0] === this.part);
-            this.part.Parent = undefined;
-        } else while (this.isInRegion(part.Position)) wait(0.1);
+        while (this.isInRegion(part.Position)) wait(0.1);
     }
     isInRegion(point: Vector3) {
         return isInShape(point, this.location, this.size, this.shape);
