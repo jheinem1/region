@@ -1,5 +1,4 @@
 /* eslint-disable roblox-ts/lua-truthiness */
-import { RunService, Workspace } from "@rbxts/services";
 import { isInShape } from "region-funcs";
 
 abstract class Region {
