@@ -9,7 +9,7 @@ const shapes = new Map<Enum.PartType, (point: Vector3, position: CFrame, size: V
         Enum.PartType.Cylinder,
         (point, position, size) => {
             const relPoint = position.PointToObjectSpace(point).div(new Vector3(1, size.X / 2, 1));
-            const radius = size.X;
+            const radius = size.X / 2;
             return math.abs(relPoint.X) <= radius && math.abs(relPoint.Z) <= radius && math.abs(relPoint.Y) <= 1;
         },
     ],
@@ -22,6 +22,6 @@ const shapes = new Map<Enum.PartType, (point: Vector3, position: CFrame, size: V
     ],
 ]);
 
-export function isInShape(point: Vector3, position: CFrame, size: Vector3, type: Enum.PartType) {
-    return shapes.get(type)?.(point, position, size) ?? false;
+export function isInShape(point: Vector3, position: CFrame, size: Vector3, shape: Enum.PartType) {
+    return shapes.get(shape)?.(point, position, size) ?? false;
 }
