@@ -51,10 +51,15 @@ export class BasePartRegion extends Region {
     /** Resolves when the part enters the region and rejects if the timeout (if specified) is reached
      * @returns a promise that resolves when the provided part enters the region */
     async enteredRegion(part: BasePart, timeout?: number) {
-        return new Promise<void>(async (resolve, reject) => {
+        return new Promise<void>(async (resolve, reject, onCancel) => {
             const start = os.clock();
+            let active = true;
+            onCancel(() => (active = false));
             while (this.isInRegion(part.Position)) {
-                if (timeout && os.clock() - start > timeout) reject();
+                if (active && timeout && os.clock() - start > timeout) {
+                    reject();
+                    return;
+                }
                 await this.callback();
             }
             resolve();
@@ -63,10 +68,15 @@ export class BasePartRegion extends Region {
     /** Resolves when the part leaves the region and rejects if the timeout (if specified) is reached
      * @returns a promise that resolves when the provided part leaves the region */
     async leftRegion(part: BasePart, timeout?: number) {
-        return new Promise<void>(async (resolve, reject) => {
+        return new Promise<void>(async (resolve, reject, onCancel) => {
             const start = os.clock();
+            let active = true;
+            onCancel(() => (active = false));
             while (this.isInRegion(part.Position)) {
-                if (timeout && os.clock() - start > timeout) reject();
+                if (active && timeout && os.clock() - start > timeout) {
+                    reject();
+                    return;
+                }
                 await this.callback();
             }
             resolve();
