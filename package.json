@@ -1,6 +1,6 @@
 {
   "name": "@rbxts/region",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Simple API for checking when a specified part enters/exits a region using promises.",
   "main": "out/init.lua",
   "scripts": {
