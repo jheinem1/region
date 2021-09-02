@@ -29,7 +29,7 @@ export class BasePartRegion extends Region {
         public location: CFrame,
         public size: Vector3,
         public shape: Enum.PartType,
-        protected callback: () => Promise<unknown> = async () => wait(0.1),
+        protected callback: () => Promise<unknown> = async () => task.wait(0.1),
     ) {
         super();
         // eliminates the potential of the size extending beyond the shape for spheres and cylinders
