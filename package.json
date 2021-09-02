@@ -1,0 +1,33 @@
+{
+  "name": "@rbxts/region",
+  "version": "0.0.0",
+  "description": "Simple API for checking when a specified part enters/exits a region using promises.",
+  "main": "out/init.lua",
+  "scripts": {
+    "build": "rbxtsc",
+    "watch": "rbxtsc -w",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [],
+  "author": "jheinem1",
+  "license": "MIT",
+  "types": "out/index.d.ts",
+  "files": [
+    "out"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@rbxts/compiler-types": "^1.2.3-types.0",
+    "@rbxts/types": "^1.0.522",
+    "@typescript-eslint/eslint-plugin": "^4.30.0",
+    "@typescript-eslint/parser": "^4.30.0",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-roblox-ts": "^0.0.31",
+    "prettier": "^2.3.2",
+    "typescript": "^4.4.2"
+  }
+}
