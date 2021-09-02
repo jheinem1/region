@@ -16,7 +16,7 @@ const shapes = new Map<Enum.PartType, (point: Vector3, position: CFrame, size: V
     [
         Enum.PartType.Block,
         (point, position, size) => {
-            const relPoint = position.PointToObjectSpace(point).div(size.div(new Vector3(2, 2, 2)));
+            const relPoint = position.PointToObjectSpace(point).div(size.div(2));
             return math.abs(relPoint.X) <= 1 && math.abs(relPoint.Y) <= 1 && math.abs(relPoint.Z) <= 1;
         },
     ],
