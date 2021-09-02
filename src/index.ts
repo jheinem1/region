@@ -56,11 +56,11 @@ export class BasePartRegion extends Region {
             let active = true;
             onCancel(() => (active = false));
             while (this.isInRegion(part.Position)) {
+                await this.callback();
                 if (active && timeout && os.clock() - start > timeout) {
                     reject();
                     return;
                 }
-                await this.callback();
             }
             resolve();
         });
@@ -73,11 +73,11 @@ export class BasePartRegion extends Region {
             let active = true;
             onCancel(() => (active = false));
             while (this.isInRegion(part.Position)) {
+                await this.callback();
                 if (active && timeout && os.clock() - start > timeout) {
                     reject();
                     return;
                 }
-                await this.callback();
             }
             resolve();
         });
