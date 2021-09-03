@@ -2,7 +2,7 @@ const shapes = new Map<Enum.PartType, (point: Vector3, position: CFrame, size: V
     [
         Enum.PartType.Ball,
         (point, position, size) => {
-            return point.sub(position.Position).Magnitude <= size.X;
+            return point.sub(position.Position).Magnitude <= size.X / 2;
         },
     ],
     [
