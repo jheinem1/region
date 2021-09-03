@@ -91,13 +91,13 @@ export class RegionUnion extends Region {
     async leftRegion(part: BasePart, timeout?: number) {
         return Promise.race(this.getRegions(part.Position).map((region) => region.leftRegion(part, timeout)));
     }
-    /** Checks if the player/character is inside any of the regions in the union
+    /** Checks if the point is inside any of the regions in the union
      * @returns An array of regions (if any) the player is in */
     getRegions(point: Vector3) {
         return this.regions.filter((region) => region.isInRegion(point));
     }
-    /** Checks if the player/character is inside a region in the union
-     * @returns The first region the player was found to be in */
+    /** Checks if the point is inside a region in the union
+     * @returns The first region the point was found to be in */
     isInRegion(point: Vector3) {
         return !!this.regions.filter((region) => region.isInRegion(point));
     }
