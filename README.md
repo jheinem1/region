@@ -19,7 +19,7 @@ Most region APIs rely on events, which generally involve a lot of busy waiting i
 #### Region.enteredRegion
 
 ```TypeScript
-enteredRegion(part: BasePart, timeout?: number), step?: () => Promise<unknown>: Promise<void>
+enteredRegion(part: BasePart, timeout?: number, step?: () => Promise<unknown>): Promise<void>
 ```
 Returns a promise that resolves when the provided part enters the region.
 
@@ -28,7 +28,7 @@ Returns a promise that resolves when the provided part enters the region.
 #### Region.leftRegion
 
 ```TypeScript
-leftRegion(part: BasePart, timeout?: number, step?: () => Promise<unknown>): Promise<void>;
+leftRegion(part: BasePart, timeout?: number, step?: () => Promise<unknown>): Promise<void>
 ```
 Returns a promise that resolves when the provided part leaves the region.
 
