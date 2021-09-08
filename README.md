@@ -19,16 +19,20 @@ Most region APIs rely on events, which generally involve a lot of busy waiting i
 #### Region.enteredRegion
 
 ```TypeScript
-enteredRegion(part: BasePart, timeout?: number): Promise<void>
+enteredRegion(part: BasePart, timeout?: number), step?: () => Promise<unknown>: Promise<void>
 ```
 Returns a promise that resolves when the provided part enters the region.
+
+`step` is an optional argument (that normally defaults to `task.wait(0.1)` for most `Region` classes) which can be used to provide a function that yields for a certain amount of time. This can be useful for tying checks to a specific event.
 
 #### Region.leftRegion
 
 ```TypeScript
-leftRegion(part: BasePart, timeout?: number): Promise<void>;
+leftRegion(part: BasePart, timeout?: number, step?: () => Promise<unknown>): Promise<void>;
 ```
 Returns a promise that resolves when the provided part leaves the region.
+
+`step` is an optional argument (that normally defaults to `task.wait(0.1)` for most `Region` classes) which can be used to provide a function that yields for a certain amount of time. This can be useful for tying checks to a specific event.
 
 #### Region.isInRegion
 
@@ -60,7 +64,6 @@ constructor(
   location: CFrame,
   size: Vector3,
   shape: Enum.PartType,
-  step: () => Promise<unknown> = async () => task.wait(0.1),
 )
 ```
 
@@ -70,10 +73,6 @@ constructor(
 fromPart(part: BasePart): BasePartRegion
 ```
 An alternative to the constructor, this allows for the creation of `BasePartRegion`s using `BasePart`s.
-
-#### BasePartRegion.step
-
-This is a user-definable async function in the constructor that allows users to specify the interval at which `enteredRegion` and `leftRegion` are checked. Can be set to anything from `BasePart.Touched` to `RunService.RenderStepped`, but it defaults to `task.wait(0.1)`. This is technically inherited by all `Region`s, but only effective when set in a `BasePartRegion`.
 
 ### RegionUnion
 
