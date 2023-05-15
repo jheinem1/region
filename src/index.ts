@@ -93,7 +93,7 @@ export class RegionUnion extends Region {
     /** Checks if the point is inside a region in the union
      * @returns The first region the point was found to be in */
     isInRegion(point: Vector3) {
-        return !!this.regions.filter((region) => region.isInRegion(point));
+        return !!this.getRegions(point);
     }
 }
 
